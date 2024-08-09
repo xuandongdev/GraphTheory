@@ -35,6 +35,17 @@ int isAdjacent(Graph *G, int x, int y){
 	return (G->A[x][y] != 0);	//kiem tra neu x va y co cung (la lang gieng) thi return 1
 }
 
+//tinh bac cua dinh x trong do thi
+int degree(Graph *G, int x){
+	int deg = 0, i;
+	for(i=1; i<=G->n; i++){
+		if(G->A[i][x] == 1){
+			deg++;
+		}
+	}
+	return deg;
+}
+
 int main(){
 	Graph G;
 	//khoi tao do thi
@@ -83,33 +94,35 @@ int main(){
 		//duyet het 1 hang thi xuong dong
 		printf("\n");
 	}
-	printf("Ban co muon kiem tra lang gieng giua cac dinh hay khong(1: co; 2: khong)?\n");
+	printf("Chon thao tac kiem tra:\n\n");
 	scanf("%d", &option);
-	if(option == 0){
-		return 0;
-	}
-	else if(option == 1){
-		printf("Nhap vao cap dinh can kiem tra:\n\n");
-		printf("Nhap vao dinh thu nhat: \n");
-		scanf("%d", &edge1);
-		printf("Nhap vao dinh thu hai: \n");
-		scanf("%d", &edge2);
-		if(isAdjacent){
-			printf("Hai dinh %d va %d la lang gieng!!", edge1, edge2);
+	int x;
+	switch (option){
+		case 0:
 			return 0;
-		}
-		else{
-			printf("Hai dinh %d va %d la lang gieng!!", edge1, edge2);
+		case 1:
+			printf("Nhap vao cap dinh can kiem tra:\n\n");
+			printf("Nhap vao dinh thu nhat: \n");
+			scanf("%d", &edge1);
+			printf("Nhap vao dinh thu hai: \n");
+			scanf("%d", &edge2);
+			if(isAdjacent){
+				printf("Hai dinh %d va %d la lang gieng!!", edge1, edge2);
+				return 0;
+			}
+			else{
+				printf("Hai dinh %d va %d la lang gieng!!", edge1, edge2);
+				return 0;
+			}
+			break;
+		case 2:
+			printf("Nhap dinh can xac dinh bac:\n\n");
+			scanf("%d", &x);
+			printf("degree(%d) = %d\n", x,degree(&G, x));
+			break;
+		default: 
 			return 0;
-		}
 	}
-//	for(i=1; i<=G.n; i++){
-//		for(j=1; j<=G.n; j++){
-//			printf("%d ", G.A[i][j]);
-//		}
-//		//duyet het 1 hang thi xuong dong
-//		printf("\n");
-//	}
 	
 	return 0;
 }
