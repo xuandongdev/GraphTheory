@@ -106,6 +106,12 @@ int main(){
         //gan -1 de quy uoc dinh i chua co cha
         parent[i] = -1;
     }
+    //do thi khong lien thong
+    for(i=1; i<=n; i++){
+        if(mark[i] == 0){
+            DFS_DeQuy(&G, i, 0);
+        }
+    }
     DFS_DeQuy(&G, 1, 0);
     for(i=1; i<=n; i++){
         printf("%d %d\n", i, parent[i]);
