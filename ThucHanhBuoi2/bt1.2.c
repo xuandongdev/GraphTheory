@@ -141,7 +141,7 @@ int main(){
         scanf("%d%d", &u, &v);
         addEdge(&G, u, v);
     }
-    BFS(&G  );
+    BFS(&G);
     // for(i=1; i<=L.size; i++){
     //     printf("%d\n", elemantAt(&L, i));
     // }
