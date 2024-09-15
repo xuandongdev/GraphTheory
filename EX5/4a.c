@@ -81,15 +81,17 @@ int empty(Stack *s){
     return s->size = 0;
 }
 
-int mark[M];
-int parent[M];
 List dfs(Graph *g, int x){
     Stack s;
     makeNullStack(&s);
     int i, j;
     pushStack(&s, x);
     List markDFS;
-    makeNullList(&markDFS); 
+    makeNullList(&markDFS);
+    int mark[M];
+    for(i=1; i<=g->n; i++){
+        mark[i] = 0;
+    } 
     while (!empty(&s))
     {
         int u = top(&s, x);
@@ -102,7 +104,7 @@ List dfs(Graph *g, int x){
         List l = neighbors(g, u);
         for(i=1; i<=l.size; i++){
             int v = element(&l, i);
-            if(adjacent(g, v, i)){
+            if(mark[i] == 0){
                 pushStack(&s, i);
             }
         }
@@ -112,25 +114,20 @@ List dfs(Graph *g, int x){
 
 int main(){
     Graph g;
-    int i, n, m, u, v;
+    int i, j, n, m, u, v;
     scanf("%d%d", &n, &m);
     initGraph(&g, n);
     for(i=1; i<=m; i++){
         scanf("%d%d", &u, &v);
         addEdge(&g, u, v);
     }
-
-    for(i=1; i<=n; i++){
-        mark[i] = 0;
-        parent[i] = -1;
-    }
     int mark_dfs[M];
     for(i=1; i<=g.n; i++){
         if(mark_dfs[i] == 0){
             List DFS = dfs(&g, i);
-            for(i=1; i<=DFS.size; i++){
-                printf("%d ", element(&DFS, i));
-                mark_dfs[element(&DFS, i)] = 1;
+            for(j=1; j<=DFS.size; j++){
+                printf("%d ", element(&DFS, j));
+                mark_dfs[element(&DFS, j)] = 1;
             }
         }        
     }
